@@ -1,0 +1,9 @@
+# Marvin's machinery is tracked; its notes are local to each machine.
+#
+# Deny-by-default: jj auto-tracks new files on every snapshot, so a note type
+# nobody thought to ignore would otherwise become publishable by accident.
+# Everything under marvin/ is ignored unless re-included below.
+marvin/*
+!marvin/AGENTS.md
+!marvin/CLAUDE.md
+!marvin/README.md
