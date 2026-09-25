@@ -90,7 +90,7 @@ const mockRepo: Mocked<Repository> = {
 ## Vitest config
 
 ```typescript
-// vitest.config.ts — reset mocks between tests automatically
+// vitest.config.ts: reset mocks between tests automatically
 export default {
   test: {
     mockReset: true,

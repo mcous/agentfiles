@@ -37,7 +37,7 @@ Test antipatterns are in the `/review-style` skill. See `references/vitest-when.
 - *Necessary*: only test behaviors actually needed. Don't test edge cases handled upstream — unnecessary guard clauses restrict implementation freedom and mislead readers.
 - *Sufficient*: each test must fully specify observable behavior. Asserting only that something returned is not enough. Stubs must be conditional on specific arguments.
 
-**NOOOPE zone.** Don't write mid-stack integration tests that couple to framework internals (e.g. NestJS controllers, mounted component trees). They're simultaneously too coupled to implementation details *and* too divorced from reality — they break on refactors without catching real bugs. When the urge hits: can the seam move to make this a unit test? If not, make it a full SAFE (Smoke/Acceptance/Full-stack/End-to-end) test — use the `/e2e` skill.
+**NOOOPE zone.** Don't write mid-stack integration tests that couple to framework internals (e.g. NestJS controllers, mounted component trees). They're simultaneously too coupled to implementation details *and* too divorced from reality — they break on refactors without catching real bugs. When the urge hits: can the boundary move to make this a unit test? If not, make it a full SAFE (Smoke/Acceptance/Full-stack/End-to-end) test — use the `/e2e` skill.
 
 ## Phase 1: Collaboration Test
 
@@ -109,7 +109,7 @@ For each collaborator:
 - Implement thin adapter — no unit test needed (trust the library)
 - Document which library features are actually used
 - Callers mock this wrapper, never the underlying library directly
-- Why: pushing third-party interactions to boundaries gives you a seam you own. Pain of mocking a library you don't control is useless — you can't fix it by redesigning code you don't own.
+- Why: pushing third-party interactions to boundaries gives you a boundary you own. Pain of mocking a library you don't control is useless — you can't fix it by redesigning code you don't own.
 
 **Value type:**
 
@@ -124,10 +124,10 @@ Output at end:
 ## Topology
 
 entry-point [collaborator]
-├── unitA [functional] — split: logic found in entry point
+├── unitA [functional] split: logic found in entry point
 ├── unitB [collaborator]
 │   ├── unitC [functional]
-│   └── awesomeLibWrapper [wrapper] — wraps: AwesomeLib.optimize()
+│   └── awesomeLibWrapper [wrapper] wraps: AwesomeLib.optimize()
 └── unitD [functional]
 ```
 
@@ -140,10 +140,10 @@ One-line rationale for each split.
 **Meaningless test data.** Inputs should be obviously insignificant — values that can't be mistaken for boundary cases, magic numbers, or real data:
 
 ```typescript
-// Bad — `18` looks like an age boundary; `"test@example.com"` looks like a real fixture
+// Bad: `18` looks like an age boundary; `"test@example.com"` looks like a real fixture
 const fixture = { id: 1, age: 18, email: 'test@example.com' } satisfies User;
 
-// Good — obviously meaningless; any deviation from this shape signals intent
+// Good: obviously meaningless; any deviation from this shape signals intent
 const fixture = { id: 1, age: 1337, email: 'x@x.x' } satisfies User;
 ```
 

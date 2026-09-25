@@ -59,6 +59,33 @@ headers — one earns its place only if a reader would skip to it; "not just X b
 Y"; deliberately, worth noting, worth stating, to be clear, robust,
 comprehensive, seamless.
 
+## Voice
+
+Anything written for someone other than me follows my own writing habits:
+
+- Asides go in parentheses or between spaced hyphens (` - `). No em dashes.
+- Contractions, and plain transitions like "However," "Instead," and "In contrast,".
+- State the default and the edge case outright, e.g. what happens when nothing
+  matches.
+- Emphasis is bold on the key constraint inside a sentence.
+- End on the last useful sentence, not an epigram.
+- Argue by walking through the concrete failure: the input, what happens, and why
+  it's wrong.
+- With peers, say "we" for shared work and "I think" for opinions, and make asks as
+  questions ("Can we...?").
+- Italics mark spoken stress: "If we _don't_ have a concrete reason".
+
+What that sounds like:
+
+> Can we split this into two PRs? This will be easier to review and test if we do the
+> ESLint tooling bump first, then follow up with the RPC bump
+
+> Previously, this action would read and then overwrite npm's user config (aka
+> `~/.npmrc`). This is a harmful thing to do!
+
+> This system can't do downward migrations because the store version is locked to the
+> application version, and that's ok!
+
 ## Line breaks in posted text
 
 Anything going into a field that renders markdown — PR description, review
@@ -174,6 +201,12 @@ specs), `react` (components).
 - Do OR delegate, never both — functional, collaborator, wrapper, or value
 - Push I/O to edges; expected failures are return values, not throws
 - Accessibility and security are correctness
+
+When a step doesn't need my input, keep going. Put status notes in the same
+message as the next action. Stop and ask only when you can't continue without
+me, or before anything destructive.
+
+When a subagent reports back, check its evidence before accepting it.
 
 ## Comments
 

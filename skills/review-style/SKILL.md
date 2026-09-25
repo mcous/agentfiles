@@ -92,6 +92,7 @@ Prefer validation functions that return validated data over ones that throw or m
 
 - Curious, not declarative — "Could this live in X?" not "This should be in X"
 - "We" not "you" — shared problems, not personal failures
+- Patient and kind; in writing, tone comes only through word choices
 - Every comment actionable; if uncertain about the solution, say so explicitly
 - Batch related issues — combine similar findings into one comment rather than filing several near-identical ones
 - Flag untested assumptions: "I haven't tested this, but I'd expect..."
@@ -117,7 +118,7 @@ Link to the PR diff line: `https://github.com/{owner}/{repo}/pull/{number}/files
 Get the PR number: `gh pr view --json number -q .number`
 
 **Labels:**
-- `issue` — bugs or anti-patterns
+- `issue` — bugs or anti-patterns. A blocking one names the line, the mechanism, and the input or test that shows it failing; without all three, mark it `(non-blocking)`
 - `suggestion` — improvements to consider
 - `todo` — small necessary changes
 - `chore` — follow-up tasks, cleanup
@@ -146,15 +147,15 @@ Say the thing the label was reaching for instead:
 
 | Instead of | Write |
 |---|---|
-| `**praise:**` | "Confirmed — good catch." / "Agreed, and worth noting…" |
+| `**praise:**` | "Confirmed, good catch." / "Agreed, and …" |
 | `**praise (with a correction):**` | "Real bug, wrong mechanism: …" |
-| `**issue (non-blocking, disagree):**` | "I don't think this holds here — …" |
+| `**issue (non-blocking, disagree):**` | "I don't think this holds here: …" |
 | `**note:**` on a self-correction | "Correcting one detail above: …" |
 
 Structure a reply as: the verdict, then what changed and where (commit, PR, test
 coverage), then anything still open. Concede plainly when the reviewer is right;
 disagree plainly when they aren't, with the evidence and a stated resolution
-("resolving as not-a-bug — happy to reopen if…"). Keep the ~80-word budget.
+("resolving as not-a-bug, happy to reopen if…"). Keep the ~80-word budget.
 
 ## Before Posting
 

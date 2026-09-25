@@ -108,11 +108,11 @@ Reactive wireup is not tested in isolation — the interesting logic should have
 ```
 ## Topology
 
-LoginPage [collaborator — no test]
+LoginPage [collaborator, no test]
 ├── validateCredentials [functional] → unit test (/tdd)
 ├── authApiWrapper [wrapper] → no unit test
 └── LoginForm [logic component] → vitest browser mode
-    └── (useLoginForm reactive unit — covered by LoginForm test, not tested separately)
+    └── (useLoginForm reactive unit: covered by LoginForm test, not tested separately)
 ```
 
 ## Standing Rules
