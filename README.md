@@ -109,5 +109,4 @@ state, the overlay list, and any backups not restored. Check the queue for unpro
 
 ## License
 
-All rights reserved. Published to read and fork from, not yet under an open-source
-license.
+MIT. See `LICENSE`.
