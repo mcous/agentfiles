@@ -24,7 +24,8 @@ One machine-wide queue passes work between agent sessions:
 
 `<target>` is a repo's directory name (`agentfiles`, `my-app`), or `marvin` for
 an item tied to no repo — a ticket idea, a follow-up to triage. The target repo need
-not be cloned yet. Nothing reads the queue unprompted: no session-start check, no
+not be cloned yet. Only directories are targets; files and dot-directories at the queue
+root are not. Nothing reads the queue unprompted: no session-start check, no
 aside in an unrelated answer.
 
 ## Write
