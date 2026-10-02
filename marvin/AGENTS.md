@@ -25,6 +25,12 @@ Agents queue repo-less items for this workspace in
 `~/.config/agentfiles/handoffs/marvin/`. The `handoff` skill writes, processes, and
 surveys the queue.
 
+## Notes
+
+Notes live in Obsidian vaults, not in this directory. Personal notes go in
+`~/Dropbox/Notes`, which syncs to a personal Dropbox account, so company material never
+goes there. A company overlay names its own work vault.
+
 ## Prompt and skill changes
 
 The base prompt and shared skills live in `~/projects/agentfiles`; private ones in each
@@ -38,5 +44,5 @@ that changed without being asked again:
    with the harness co-author trailer.
 3. `jj -R <repo> bookmark set main -r @-` then `jj -R <repo> git push`.
 
-Both go straight to `main`; no branch, no PR. Local notes in this directory are not
-version controlled, so there is never anything to commit for those.
+Both go straight to `main`; no branch, no PR. Notes are not version controlled, so there
+is never anything to commit for those.

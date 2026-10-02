@@ -9,20 +9,19 @@ not from the repository root.
 
 ## Machinery vs. notes
 
-Machinery is version controlled and syncs across machines. Notes are local to the
-machine that made them and are ignored by the repository's `.gitignore`.
+This directory holds machinery only. Notes live in Obsidian vaults elsewhere:
+`~/Dropbox/Notes` for personal notes, and whatever work vault a company overlay names.
 
 ```text
 AGENTS.md                  project instructions and persona   tracked
 CLAUDE.md -> AGENTS.md     Claude Code adapter symlink        tracked
 
 .claude/                   harness settings and permissions   local
-anything else              notes                              local
 ```
 
 The ignore rules are deny-by-default: everything under `marvin/` is ignored unless the
-repository's `.gitignore` names it. Add a new machinery file there deliberately; a new
-note type stays local without anyone having to think about it.
+repository's `.gitignore` names it. Add a new machinery file there deliberately; a stray
+note stays local without anyone having to think about it.
 
 ## Setup
 
