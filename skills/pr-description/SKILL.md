@@ -135,7 +135,8 @@ decision with real alternatives to weigh — not for symmetry, not to seem thoro
 
 ## Footer
 
-Every posted PR description carries the LLM-attribution footer, once, at the end:
+Every posted PR description carries the LLM-attribution footer, once, at the end,
+in place of the harness's "Generated with Claude Code" line:
 
 ```markdown
 🤖 **LLM-generated**

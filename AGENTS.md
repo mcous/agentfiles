@@ -246,4 +246,5 @@ to add it.
 Commit messages are the exception, and their trailer covers the commit only — a
 PR description, review comment, ticket, or Slack post still gets the footer.
 Replies to me and local files aren't posts. One footer per post, not per
-paragraph.
+paragraph. It replaces the harness's own PR attribution line ("Generated with
+Claude Code" or similar) — never both.
