@@ -21,8 +21,10 @@ has, and what to distrust.
 
 1. **Read the template.** `.github/pull_request_template.md` (either case), or the
    files under `.github/PULL_REQUEST_TEMPLATE/`. Check; don't assume there is none.
-   Keep every section it defines, in order. A section that truly doesn't apply gets
-   one line saying so, never a silent deletion.
+   Keep every section it defines, in order, and add no top-level heading of your
+   own — a fact that needs its own heading gets an `###` nested inside the section
+   it belongs to. A section that truly doesn't apply gets one line saying so, never
+   a silent deletion. No template in the repo means the default below.
 2. **Read the diff**, not just your memory of writing it — `git diff main...HEAD
 --stat`, then the substantive files.
 3. **List the facts a reviewer needs.** Then assign each one a medium from the table
@@ -30,6 +32,30 @@ has, and what to distrust.
    and it is usually a third of what you expected to write.
 
 Facts, not sections, are the unit. A single fact lands in one section only.
+
+## The default template
+
+A repo with no template gets these headings, in this order, and nothing else. No
+Summary, no Next steps, no Alternatives considered.
+
+```markdown
+## Overview
+
+<The problem, and the ticket link. Two sentences if the ticket carries the detail.>
+
+## Change log
+
+<Bullets, grouped by what a reviewer would go check — never file by file, never the
+diff restated. Blocks and diagrams live here.>
+
+## Notes
+
+<Only when there is something to distrust, a scope boundary, a repro the reviewer
+should run, or a follow-up someone must act on. Cut the heading otherwise.>
+```
+
+Overview and Change log always ship. Notes is earned — a heading with nothing under
+it worth a reviewer's time is noise, so cut it rather than fill it.
 
 ## Pick the medium
 
@@ -129,8 +155,8 @@ checked box is a lie to the reviewer; an unchecked one is his job.
 
 ## Budgets
 
-~80 words of prose per template section, blocks and diagrams free. Absent a template,
-~250 words total. Exceed a budget for ordered migration steps, an exact repro, or a
+~80 words of prose per section, blocks and diagrams free — under the default
+template too, which lands around ~250 words total. Exceed a budget for ordered migration steps, an exact repro, or a
 decision with real alternatives to weigh — not for symmetry, not to seem thorough.
 
 ## Footer
