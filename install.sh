@@ -204,7 +204,8 @@ duplicate_skills() {
 
   while IFS= read -r root; do
     for skill_source in "$root"/skills/*; do
-      [[ -d "$skill_source" ]] && printf '%s\t%s\n' "$(basename "$skill_source")" "$skill_source"
+      [[ -d "$skill_source" ]] || continue
+      printf '%s\t%s\n' "$(basename "$skill_source")" "$skill_source"
     done
   done < <(skill_roots) | awk -F '\t' '
     { sources[$1] = sources[$1] "\n  " $2; count[$1]++ }
