@@ -28,10 +28,10 @@ jj git clone --colocate https://github.com/mcous/agentfiles ~/projects/agentfile
 ## 3. Clone private overlays
 
 Ask whether the user has private overlay repos to load on this machine, and which.
-If none, skip to step 4. Clone each beside the public repo:
+If none, skip to step 4. Clone each into a directory named for its company:
 
 ```bash
-jj git clone --colocate git@github.com:<owner>/<repo> ~/projects/<repo>
+jj git clone --colocate git@github.com:<owner>/<repo> ~/<company>/<repo>
 ```
 
 A clone failure means the user's `gh`/SSH identity can't see that repo. Report it;
@@ -40,7 +40,7 @@ don't continue without it unless the user says to.
 ## 4. Install
 
 Follow the Install section of `skills/agentfiles/SKILL.md` from the clone, adding
-`--overlay ~/projects/<repo>` for each overlay cloned in step 3. The installer
+`--overlay ~/<company>/<repo>` for each overlay cloned in step 3. The installer
 remembers them, so this is the only run that needs the flag.
 
 ## 5. Verify

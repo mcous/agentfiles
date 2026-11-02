@@ -36,7 +36,7 @@ here. They live in separate private repos of the same shape — an `AGENTS.md`, 
 `skills/` directory, or both — installed only on machines that have them:
 
 ```bash
-./install.sh --overlay ~/projects/<private-repo>
+./install.sh --overlay ~/<company>/<private-repo>
 ```
 
 The installer remembers each overlay in `~/.config/agentfiles/overlays`, so later runs

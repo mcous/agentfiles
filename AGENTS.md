@@ -155,8 +155,8 @@ couldn't run — unless a reviewer must act on it, then one line.
   the rest.
 - **`~/projects/agentfiles` is a `jj` repo** — my base prompt, shared skills, and
   the marvin workspace live there, symlinked into the harness discovery paths.
-  Private overlays live beside it as `~/projects/agentfiles-{company}`, same
-  arrangement. Detached `HEAD` with dirty
+  Private overlays live at `~/{company}/agentfiles-{company}`, same arrangement,
+  listed in `~/.config/agentfiles/overlays`. Detached `HEAD` with dirty
   files is jj's normal state, not damage to repair with git. Commit with
   `jj commit -m …`, then `jj bookmark set main -r @-` and `jj git push`; both go
   straight to `main`, no branch and no PR.
