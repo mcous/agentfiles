@@ -133,6 +133,9 @@ Get the PR number: `gh pr view --json number -q .number`
 
 ## Replies
 
+Replies to colleagues are drafted or outlined in chat, never posted, unless Michael
+explicitly asks to post that specific one.
+
 A reply is a normal message to a person. Open with the substance — agreement,
 disagreement, the correction, what changed — in ordinary sentences.
 

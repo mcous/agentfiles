@@ -44,6 +44,12 @@ any medium. Don't brief me on what a reviewer might ask, don't pre-draft the
 reply I'd give them, don't explain my own work back to me. If a real objection
 lands, answer it then — with context I'm missing, not context I wrote.
 
+**I write my own replies.** Never reply to a colleague's comment — on a PR,
+issue, ticket, Slack thread, or doc — and never delegate one to a subagent.
+Written comms to people are human-written. At most I'll ask you to outline or
+draft a reply in chat, and I post it. Post a reply yourself only when I
+explicitly ask you to post that specific one.
+
 Don't recite my own standing instructions back to me as advice. If a rule is in
 this file or a skill, following it is the whole deliverable — narrating that you
 followed it, or coaching me on when it applies, is padding. A rule that only
@@ -145,8 +151,14 @@ couldn't run — unless a reviewer must act on it, then one line.
 - **Branches start with `mcous/`** — my GitHub username, not my computer
   username (e.g. `mcous/abc-123-export-csv`). Applies to `git switch -c`,
   worktrees, and anything that generates a name.
-- **jj repos get `jj workspace`, never `git worktree`** — anything with a `.jj/`
-  directory counts. Sidequests get
+- **jj repos use `jj`, never `git`, to change history** — anything with a `.jj/`
+  directory counts, including colocated repos where `git` still runs. Commit,
+  rebase, restack, bookmark, and push with `jj`; never `git commit`, `rebase`,
+  `merge`, `checkout`, `switch`, `branch`, `stash`, or `push`, and never the git
+  commands in a skill or the harness's git status. A branch is a bookmark, `HEAD`
+  is meaningless (name the bookmark or `@-`), and `<base>..HEAD` is
+  `jj log -r '<base>..<bookmark>'`.
+- **jj repos get `jj workspace`, never `git worktree`**. Sidequests get
   `jj workspace add --name <repo>-<slug> <worktree-root>/<repo>-<slug>`, torn
   down with `jj workspace forget <name>` and `rm -rf`. Don't use the harness's
   worktree isolation on these — it runs `git worktree`, which jj doesn't track.
@@ -166,11 +178,23 @@ couldn't run — unless a reviewer must act on it, then one line.
 A PR's history is rewritable until its first substantive human review — bot
 reviews and bare LGTMs don't count. Until then, rebase, squash, amend, and
 force-push freely. Once a human has actually reviewed, stop: bring the base
-branch in with `git merge` and add new work as fresh commits, never a
+branch in with a merge commit and add new work as fresh commits, never a
 force-push. Force-pushing after a review orphans inline comments and destroys
 the reviewer's incremental diff, so they re-read the whole PR instead of just
-what changed. The same holds per stack entry under gh-stack:
-restack an entry freely until that entry is reviewed, then leave it alone.
+what changed. The same holds per stack entry: restack an entry freely until
+that entry is reviewed, then leave it alone.
+
+| | git | jj |
+|---|---|---|
+| Restack, unreviewed | `git rebase` | `jj rebase -b <bottom> -d 'trunk()'` |
+| Bring in base, reviewed | `git merge <base>` | `jj new <bookmark> <base> -m "merge <base>"`, `jj new`, `jj bookmark set <bookmark> -r @-` |
+| New work, reviewed | new commit | `jj new <bookmark>`, commit, `jj bookmark set <bookmark> -r @-` |
+
+In jj, pushed commits stay mutable and `jj git push` force-pushes a rewritten
+bookmark without asking. Once an entry is reviewed, never `describe`, `squash`,
+`edit`, `abandon`, or `rebase` its commits or anything below them, and run
+`jj git push --dry-run` first: anything but "move forward" for a reviewed
+bookmark means stop and ask.
 
 ## Commit messages
 
@@ -192,7 +216,8 @@ review, and direct.
 
 Skills carry the detail: `tdd` and `tdd-fe` (implementing with tests),
 `review-style` (code review), `e2e` (Playwright), `tickets` (tickets and
-specs), `react` (components).
+specs), `react` (components), `stack` (stacked PRs and their review panes),
+`draft-review` (reviewing any outbound draft in Hunk before it's posted).
 
 - Small, disposable units — targeted rewrites beat in-place refactors
 - Write exactly what's needed; nothing more
@@ -234,14 +259,30 @@ overshot — hand it to a subagent with no context on how the code was written.
 
 ## LLM attribution
 
-Text an LLM wrote that gets posted under my credentials is marked LLM-generated.
-My reviewing or approving it doesn't change who wrote it:
+Posts under my credentials say how much an LLM wrote. My reviewing or approving
+text doesn't change who wrote it. Two levels, judged only from what you can
+observe:
 
-> 🤖 **LLM-generated**
+| Level | Prose | Code (PRs only) |
+|---|---|---|
+| `LLM-generated` | You drafted it, including revisions you wrote from my feedback or notes | Every commit on the branch has the LLM co-author trailer |
+| `LLM-assisted` | You drafted it, and some of the text is mine: I edited it myself, or you used wording I gave verbatim | Some commits have the trailer |
+| none | I wrote it; you only posted it | No commits have the trailer |
 
-Include it in drafts too, so what I approve is what gets posted. **Removing it is
-my call alone** — never drop it because I approved the text, and don't ask whether
-to add it.
+Prose defaults to `LLM-generated`. Downgrade it only for text of mine you can see
+in the post: a verbatim replacement from a note, the draft file changing outside
+your edits, or a rewrite I tell you about.
+
+Name the part only when a post covers both; drop any part with no label:
+
+```markdown
+🤖 **LLM-generated**
+🤖 **Code:** LLM-assisted · **Description:** LLM-generated
+```
+
+Include it in drafts too, so what I approve is what gets posted. **Changing or
+removing it is my call alone** — never drop or downgrade it because I approved
+the text, and don't ask whether to add it.
 
 Commit messages are the exception, and their trailer covers the commit only — a
 PR description, review comment, ticket, or Slack post still gets the footer.

@@ -26,7 +26,8 @@ has, and what to distrust.
    it belongs to. A section that truly doesn't apply gets one line saying so, never
    a silent deletion. No template in the repo means the default below.
 2. **Read the diff**, not just your memory of writing it — `git diff main...HEAD
---stat`, then the substantive files.
+--stat` (in jj, `jj diff --stat --from <base> --to <bookmark>`), then the
+substantive files.
 3. **List the facts a reviewer needs.** Then assign each one a medium from the table
    below _before_ drafting. Whatever is left over after that assignment is the prose,
    and it is usually a third of what you expected to write.
@@ -41,18 +42,44 @@ Summary, no Next steps, no Alternatives considered.
 ```markdown
 ## Overview
 
-<The problem, and the ticket link. Two sentences if the ticket carries the detail.>
+<"This PR <does what> <rather than / because ...>." in one sentence, then any detail and the ticket link.>
 
 ## Change log
 
-<Bullets, grouped by what a reviewer would go check — never file by file, never the
-diff restated. Blocks and diagrams live here.>
+<Past-tense bullets, each leading with what changed, grouped by what a reviewer would
+go check — never file by file, never the diff restated. Blocks and diagrams live here.>
 
 ## Notes
 
 <Only when there is something to distrust, a scope boundary, a repro the reviewer
 should run, or a follow-up someone must act on. Cut the heading otherwise.>
 ```
+
+Overview leads with a single "This PR …" sentence. Name the change the way a reviewer
+would say it out loud ("makes the comment sticky"), not by its mechanism. The why is
+often just the old behavior: "rather than <what it did before>" beats a forced
+"because". Each further change gets its own sentence in the same shape: the change,
+not the symptom it fixes.
+
+Reference a ticket by its bare identifier (`ABC-123`). Every repo I post to has
+autolinks configured, so never expand it to a URL or markdown link yourself.
+
+> This PR moves common Node + npm + cache setup to a shared action for consistency.
+
+- Bad: This PR keeps the affected apps list in one comment per PR because the workflow
+  posts a new comment on every push. It also stops the raw `[]` comment when no apps
+  are affected.
+- Good: This PR makes the "affected apps" comment sticky rather than posting a new
+  comment on every push. It also formats the list as bullets rather than raw JSON.
+
+Change log bullets start with a past-tense verb and the thing changed, then the one
+property a reviewer should check. Mechanics stay in the diff.
+
+- Bad: New `.github/actions/init-node`: `setup-node` (npm cache as before), restore
+  `node_modules` by exact key, `npm ci` on a miss, and save after a miss when
+  `seed-cache: true`
+- Good: Added `.github/actions/init-node` without changing `setup-node`, `npm ci`, or
+  caching behavior
 
 Overview and Change log always ship. Notes is earned — a heading with nothing under
 it worth a reviewer's time is noise, so cut it rather than fill it.
@@ -161,15 +188,25 @@ decision with real alternatives to weigh — not for symmetry, not to seem thoro
 
 ## Footer
 
-Every posted PR description carries the LLM-attribution footer, once, at the end,
-in place of the harness's "Generated with Claude Code" line:
+Every posted PR description carries the LLM-attribution footer from CLAUDE.md,
+once, at the end, in place of the harness's "Generated with Claude Code" line.
+A PR labels code and description separately:
 
 ```markdown
-🤖 **LLM-generated**
+🤖 **Code:** LLM-assisted · **Description:** LLM-generated
 ```
 
+Derive the code level from the branch, not from memory: read
+`git log --format='%h %(trailers:key=Co-Authored-By,valueonly)' <base>..HEAD`
+(in jj, `jj log --no-graph -r '<base>..<bookmark>' -T 'commit_id.short() ++ " " ++ trailers.filter(|t| t.key() == "Co-Authored-By").map(|t| t.value()).join(",") ++ "\n"'`)
+and count the commits whose trailer names an LLM (human co-authors don't count). Omit a part I wrote entirely; omit the footer if both are mine.
+
 Include it in drafts shown for approval, so what Michael approves is what gets
-posted. Removing it is his call alone. Never ask whether to add it.
+posted. Changing or removing it is his call alone. Never ask whether to add it.
+
+## Stacks
+
+A PR in a stack keeps its draft where the `stack` skill says, not in chat.
 
 ## Delegating
 
